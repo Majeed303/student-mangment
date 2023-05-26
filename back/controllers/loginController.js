@@ -23,11 +23,10 @@ const loginController = async (req, res) => {
     }
 
     // Password is correct, authentication successful
-    req.session.LoggedIn=true;
-    req.session.userId = user._id;
-    req.session.userEmail = user.email;
+    req.session.user = user;
+    req.session.save();
 
-    return res.status(200).send(user);
+    return res.status(200).send(user);  
   } catch (error) {
     console.error(error);
     return res.status(500).send({ error: "An unexpected error occurred" });

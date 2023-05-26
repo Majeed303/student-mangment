@@ -4,11 +4,12 @@ import mongoose from 'mongoose';
 import cors from 'cors'
 import { userRouter } from './routes/user.js';
 import session from 'express-session';
-
+import cookieParser from 'cookie-parser'
 //app
 const app = express();
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
+app.use(cookieParser());
 
                       // i need give access to images folder
 app.use('/images', express.static('images'));
@@ -16,8 +17,8 @@ app.use('/images', express.static('images'));
             // Configure session middleware
 app.use(session({
     secret: "key", // Secret used to sign the session ID cookie
-    resave: false, // Don't save session if unmodified
-    saveUninitialized: false, // Don't create session until something is stored
+    resave: true, // Don't save session if unmodified
+    saveUninitialized: true, // Don't create session until something is stored
   }));
 //db
 try{
